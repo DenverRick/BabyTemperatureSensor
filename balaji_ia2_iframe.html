@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  
+  <head>
+    
+    <title>
+      My Temperature Data
+    </title>
+    <meta charset="utf-8">
+  
+  <script
+  src="http://code.jquery.com/jquery-1.11.1.js">
+  </script>
+  
+  <script src="http://
+ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+  </script>
+  
+  <script
+  src="http://code.highcharts.com/highcharts.js">
+  </script>
+  
+  <script
+  src="http://code.highcharts.com/highcharts-more.js">
+  </script>
+  
+  <script
+  src="http://code.highcharts.com/modules/exporting.js">
+  </script>
+  
+  </head>
+  <script type="text/javascript"> 
+    
+    var temperature=[];
+      
+      var trace1;
+      var s1;
+      var chart;
+      var i = 0;
+      function requestData() {
+        $.ajax({
+          url:
+          'https://data.sparkfun.com/output/zDo0Dqznq4h8omVWObgr.json',         
+          success: function(point) {
+            //console.log(chart.series);
+            //console.log(point);
+            //var series = chart.series[0],
+            //    shift = series.data.length > 20;
+            var myChart = $('#container').highcharts();
+            for(var a=0;a<=25; a++) {
+              if (i === point.length){
+                break;
+              }
+              console.log("i >" +point[i].temp);
+              myChart.series[0].addPoint({
+                y: parseFloat(point[i].temp),
+                name: point[i].timestamp}
+                                       , true, true);
+              //chart.series[0].addPoint(point, true, shift);
+              i++;    
+            }
+            // add the point
+            // call it again after one second
+            
+            
+            //timestamp        cache: false
+          }
+        });
+      }
+
+      
+      
+      $(document).ready(function() 
+      {
+        window.setInterval(requestData, 3000);          
+        var chartOptions = {
+            title: 
+            {
+              text: '',
+              y: 20 //center
+            },
+            subtitle: 
+            {
+              text: '',
+              y: 40
+            },
+            xAxis: 
+            {
+              categories: ["2015-09-22T05:15","2015-09-22T05:20","2015-09-22T05:25","2015-09-22T05:30","2015-09-22T05:35"]
+            },
+            yAxis:
+            [{ //first axis
+              title: 
+              {
+                text: 'Temperature',
+                style: 
+                {
+                  color: '#EBA33E'
+                }
+              },
+              plotLines: 
+              [{
+                value: 0,
+                width: 1,
+                color: Highcharts.getOptions().colors[0]
+              }],
+              labels: 
+              {
+                format: '{value}°C'
+              },
+            }],
+            tooltip: 
+            {
+              valueSuffix: '°F'
+            },
+            legend: 
+            {
+              layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'middle',
+              borderWidth: 0
+            },
+            series: 
+            [{
+              name: 'Temperature',
+              data: ["23.5","25.6","24.6","22.7","27.0"]
+            }]
+        };
+        chart =  $('#container').highcharts(chartOptions);
+    });
+
+  </script>
+  <body>
+    <div id="container" style="width: 600px; height: 300px; margin: 0 auto">
+    </div>
+  </body>
+</html>

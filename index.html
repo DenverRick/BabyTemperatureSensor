@@ -1,0 +1,312 @@
+<html>
+	<head>
+		<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  		<script src="http://code.highcharts.com/highcharts.js"></script>
+ 		<script src="http://code.highcharts.com/highcharts-more.js"></script>
+  		<script src="http://code.highcharts.com/modules/exporting.js"></script>
+		<script type="text/javascript">
+			var s1;
+			var chart;			
+			var socket = io();
+			var public_key = 'zDo0Dqznq4h8omVWObgr';
+			var private_key = 'Yyx6yBDZBVfjV0XWa8Ak';
+            function drawChart() {
+                chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'container',
+                        type: 'gauge',
+                        plotBorderWidth: 1,
+                        plotBackgroundColor: '#FFFFFF',
+                        plotBackgroundImage: null,
+                        height: 250,
+                        width:400
+                    },
+                    title: {
+                         text: 'Surrounding Temperature'
+                    },
+                    pane: [{
+                         startAngle: -90,
+                         endAngle: 90,
+                         background: null,
+                         center: ['50%', '100%'],
+                         size: 300
+                    }],                        
+                    yAxis: [{
+                        min: 60,
+                        max: 90,
+                        minorTickPosition: 'outside',
+                        tickPosition: 'outside',
+                        labels: {
+                            rotation: 'auto',
+                            distance: 1
+                        },
+                    plotBands: [{
+                        from: 80,
+                        to: 90,
+                        color: '#FF0000',
+                        innerRadius: '100%',
+                        outerRadius: '105%'
+                        },
+                        {
+                        from: 75,
+                        to: 80,
+                        color: '#FFFF00',
+                        innerRadius: '100%',
+                        outerRadius: '105%'
+                        },
+                        {
+                        from: 70,
+                        to: 75,
+                        color: '#00FF00',
+                        innerRadius: '100%',
+                        outerRadius: '105%',
+                        },
+                        {
+                        from: 65,
+                        to: 70,
+                        color: '#00FFFF',
+                        innerRadius: '100%',
+                        outerRadius: '105%',
+                        },
+                        {
+                        from: 60,
+                        to: 65,
+                        color: '#0000FF',
+                        innerRadius: '100%',
+                        outerRadius: '105%',
+                        }
+                    ],
+                        pane: 0,
+                        title: {
+                            text: 'Temperature',
+                            y: -20
+                        }
+                    }],
+                    plotOptions: {
+                        gauge: {
+                            dataLabels: 
+                            {
+                                enabled: true
+                            },
+                            dial: 
+                            {
+                                radius: '100%'
+                            }
+                        }
+                    },
+                    series: [{
+                         yAxis: 0
+                    }]
+                },
+                function(chart) {
+                    setInterval(function() {
+                        chart.redraw();
+                        }, 5000);
+                });
+            }
+
+
+			//When we get the 'data" message...
+			socket.on('to browser', function(temp)
+			{
+				//Add the message to the #messages list
+				var myDate = new Date();
+				var myTime = myDate.getHours() + ":" + myDate.getMinutes() + ":" + myDate.getSeconds();
+                s1=parseFloat(temp);
+                console.log(s1);
+                drawChart();
+                chart.series[0].addPoint([s1, s1], true, false);
+                chart.redraw();
+                $("#tempValue").text(s1);
+                if(s1 >= 79){
+                    $("#hot").css("display","block");
+                    $("#warm").css("display","none");
+                    $("#perfect").css("display","none");
+                    $("#chill").css("display","none");
+                    $("#cold").css("display","none");
+
+                    $(".hot").toggle();
+                    $(".warm").css("display","none");
+                    $(".perfect").css("display","none");
+                    $(".chill").css("display","none");
+                    $(".cold").css("display","none");
+                }
+                else if((s1 < 79) && (s1 >=75)){
+                    $("#warm").css("display","block");
+                    $("#hot").css("display","none");
+                    $("#perfect").css("display","none");
+                    $("#chill").css("display","none");
+                    $("#cold").css("display","none");
+
+                    $(".warm").toggle();
+                    $(".hot").css("display","none");
+                    $(".perfect").css("display","none");
+                    $(".chill").css("display","none");
+                    $(".cold").css("display","none");
+                }
+                else if((s1 < 75) && (s1 >=70)){
+                    $("#perfect").css("display","block");
+                    $("#warm").css("display","none");
+                    $("#hot").css("display","none");
+                    $("#chill").css("display","none");
+                    $("#cold").css("display","none");
+
+                    $(".perfect").toggle();
+                    $(".warm").css("display","none");
+                    $(".hot").css("display","none");
+                    $(".chill").css("display","none");
+                    $(".cold").css("display","none");
+                }
+                else if((s1 < 70) && (s1 >=65)){
+                    $("#chill").css("display","block");
+                    $("#warm").css("display","none");
+                    $("#perfect").css("display","none");
+                    $("#hot").css("display","none");
+                    $("#cold").css("display","none");
+
+                    $(".chill").toggle();
+                    $(".warm").css("display","none");
+                    $(".perfect").css("display","none");
+                    $(".hot").css("display","none");
+                    $(".cold").css("display","none");
+                }
+                else if(s1 < 65){
+                    $("#cold").css("display","block");
+                    $("#warm").css("display","none");
+                    $("#perfect").css("display","none");
+                    $("#chill").css("display","none");
+                    $("#hot").css("display","none");
+
+                    $(".cold").toggle();
+                    $(".warm").css("display","none");
+                    $(".perfect").css("display","none");
+                    $(".chill").css("display","none");
+                    $(".hot").css("display","none");
+                }
+				$.get("http://data.sparkfun.com/input/zDo0Dqznq4h8omVWObgr?private_key=Yyx6yBDZBVfjV0XWa8Ak", 
+      					{
+        					temp
+      					}, 
+      				function(response){
+        				console.log(response);
+      			});
+			});
+
+
+			//Also send some data back once per second
+			window.setInterval(
+				function()
+				{
+					var myDate = new Date();
+					var myTime = myDate.getHours() + ":" + myDate.getMinutes() + ":" + myDate.getSeconds();
+					socket.emit('to serial', myTime);
+				},
+				1000
+			);
+		</script>
+	</head>
+    <style type="text/css">
+    #indicator {
+        width: 50px;
+        height: 50px;
+        border-radius: 70%;
+        position: relative;
+        margin-left: auto;
+    }
+
+    .off{
+        display: none;
+    }
+
+    #tempValue{
+        font-size: 20;
+    }
+    iframe{
+        padding-top: 25px;
+        margin-top: 150px;
+        width: 500px;
+        height: 500px;
+        position: relative;
+        left: 300px;
+    }
+    #tempLabel{
+        position: absolute;
+        left: 300px;
+    }
+    #tempValue, #indicator{
+        display: inline-block;
+    }
+    #scale, iframe, #tempLabel{
+        display: block;
+    }
+
+    #cold, #chill, #perfect, #warm, #hot{
+        width: 170px;
+        height: 50px;
+        left:350px;
+        position: relative;
+        text-align: center;
+        vertical-align: center;
+        padding-top: 10px;
+        display: none;
+    }
+
+    #cold{
+        background-color: blue;
+    }
+    #chill{
+        background-color: aqua;
+    }
+    #perfect{
+        background-color: green;
+    }
+    #warm{
+        background-color: yellow;
+    }
+    #hot{
+        background-color: red;
+    }
+
+    #scale{
+        width: 900px;
+        position: relative;
+        margin-top: 100px;
+        left: 100px;
+    }
+    #icon{
+        float: right;
+        overflow: auto;
+        width: 400px;
+        height: 400px;
+    }
+    .cold,.chill,.perfect,.warm,.hot{
+        display: none;
+    }
+    </style>
+	<body>
+        <div id="container" style="width: 600px; height: 300px; margin: 0 auto"></div>
+        <div id="icon">
+            <img src="https://upload.wikimedia.org/wikipedia/en/5/5e/Elsa_from_Disney's_Frozen.png" class="cold"/>
+            <img src="https://s-media-cache-ak0.pinimg.com/236x/8e/8a/8a/8e8a8a020373765956722750882bdb7a.jpg" class="chill"/>
+            <img src="https://s-media-cache-ak0.pinimg.com/736x/55/92/3f/55923f64caa11f6c9af2c87e6e59b6d1.jpg" class="perfect"/>
+            <img src="http://assets.inhabitots.com/wp-content/uploads/2010/03/spababyecolead123.jpg" class="warm"/>
+            <img src="http://thumbs.dreamstime.com/x/baby-cowboy-17818129.jpg" class="hot"/>
+        </div>
+        </div>
+        <span id="tempLabel">Current temperature reading: 
+            <div id="tempValue"></div>
+            <!-- <div id="indicator" class="off"></div> -->
+        </span>
+        
+        <div id="scale">
+            <div id="cold" class="off">Who invited Elsa?</div>
+            <div id="chill" class="off">Fall fashion</div>
+            <div id="perfect" class="off">Perfect!</div>
+            <div id="warm" class="off">Nice and Warm</div>
+            <div id="hot" class="off">Is this a tanning salon?</div>
+        </div>
+        <iframe src ="http://people.rit.edu/tr1682/hci720/index.html" width></iframe>
+	</body>
+</html>
