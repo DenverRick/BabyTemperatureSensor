@@ -1,8 +1,8 @@
 # NurseryTemperatureSensor
 The idea is to keep a track of the nursery's room temperature. The temperature scale displayed reflects what would be ideal for a baby. The details of this data can be obtained here:<br>
 http://www.newkidscenter.com/Room-Temperature-for-Babies.html<br>
-
-1) Sensor : TMP102. A tiny digital temperature sensor. Details can be found <a href="https://www.sparkfun.com/products/11931">here</a>.
+###1) Sensor :
+TMP102. A tiny digital temperature sensor. Details can be found <a href="https://www.sparkfun.com/products/11931">here</a>.
 The sensor is pretty simple. It has 5 inputs which are namely:<br>
 -Power,<br>
 -Ground, <br>
@@ -14,16 +14,20 @@ The value returned is in 12-bit int. So we have to use 2-complement to convert i
 The entire code chunk for reading the temperature can be obtained <a href="http://bildr.org/2011/01/tmp102-arduino/">here</a><br>
 This data is passed on as an float to the serial input. Logical operations can thus be performed on this data. 
 <br><br>
-2) Visualization: I have ditched all the tools and plugins that I used for IA1. I had used JQPLOT and PLOTLY.
+###2) Visualization: 
+I have ditched all the tools and plugins that I used for IA1. I had used JQPLOT and PLOTLY.
 This time around I have namely 3 different visuals on screen.<br>
 -A meter-gauge displaying temperature data as it reads from serial. This visualization is created using highcharts.
 -The actual visual of a baby reflecting its mood. This has been created using CSS styles<br>
 -A temperature v/s time series for keeping track of the data. All the data being read from serial input is uploaded to data.sparkfun. The sparkfun repository creates it own timestamp with every input. This has been visualized using Highcharts. The advantage of using highcharts is that it allows us to provide absolute paths to its script files without requiring us to download all the scripts. Moreover, because of the way it has been structured, it is better suited to handle live data.<br>
 <br><br>
-3) Output - I have used an RGB led for providing a physical output, apart from the visualization that we see on the browser.
+###3) Output - 
+I have used an RGB led for providing a physical output, apart from the visualization that we see on the browser.
 The colour of the LED matches the colour being shown on the meter gauge. The color scheme is also pretty intuitive.
 The logic for handling the LED is coded in the .ino file itself. And it is triggered as and when we read an input from the serial.
 
 The link for visualization of data on cloud:
 http://rawgit.com/tirumalavan/BabyTemperatureSensor/master/balaji_ia2_iframe.html
 
+Pictures of the circuits:
+https://github.com/tirumalavan/BabyTemperatureSensor/tree/master/Circuits
