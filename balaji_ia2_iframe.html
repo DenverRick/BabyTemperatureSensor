@@ -43,10 +43,7 @@ ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
           url:
           'https://data.sparkfun.com/output/zDo0Dqznq4h8omVWObgr.json',         
           success: function(point) {
-            //console.log(chart.series);
-            //console.log(point);
-            //var series = chart.series[0],
-            //    shift = series.data.length > 20;
+            point.reverse();
             var myChart = $('#container').highcharts();
             for(var a=0;a<=25; a++) {
               if (i === point.length){
@@ -57,14 +54,8 @@ ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
                 y: parseFloat(point[i].temp),
                 name: point[i].timestamp}
                                        , true, true);
-              //chart.series[0].addPoint(point, true, shift);
               i++;    
             }
-            // add the point
-            // call it again after one second
-            
-            
-            //timestamp        cache: false
           }
         });
       }
@@ -107,7 +98,7 @@ ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
               }],
               labels: 
               {
-                format: '{value}°C'
+                format: '{value}°F'
               },
             }],
             tooltip: 
