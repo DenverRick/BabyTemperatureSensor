@@ -1,4 +1,4 @@
-# BabyTemperatureSensor
+# NurseryTemperatureSensor
 The idea is to keep a track of the nursery's room temperature. The scale have been modified to reflect what would be ideal for a baby. The details of this temperature can be obtained here:<br>
 http://www.newkidscenter.com/Room-Temperature-for-Babies.html<br>
 
