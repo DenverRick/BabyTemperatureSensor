@@ -1,5 +1,5 @@
 # NurseryTemperatureSensor
-The idea is to keep a track of the nursery's room temperature. The scale have been modified to reflect what would be ideal for a baby. The details of this temperature can be obtained here:<br>
+The idea is to keep a track of the nursery's room temperature. The temperature scale displayed reflects what would be ideal for a baby. The details of this data can be obtained here:<br>
 http://www.newkidscenter.com/Room-Temperature-for-Babies.html<br>
 
 1) Sensor : TMP102. A tiny digital temperature sensor. Details can be found <a href="https://www.sparkfun.com/products/11931">here</a>.
