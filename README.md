@@ -16,9 +16,9 @@ This data is passed on as an float to the serial input. Logical operations can t
 <br><br>
 2) Visualization: I have ditched all the tools and plugins that I used for IA1. I had used JQPLOT and PLOTLY.
 This time around I have namely 3 different visuals on screen.<br>
--A meter-gauge displaying temperature data as it reads from serial. This visualization is created using highcharts.<br
--The actual visual of a baby reflecting its mood. This has been created using CSS styles
--A temperature v/s time series for keeping track of the data. All the data being read from serial input is uploaded to data.sparkfun. The sparkfun repository creates it own timestamp with every input. This has been visualized using Highcharts. The advantage of using highcharts is that it allows us to provide absolute paths to its script files without requiring us to download all the scripts. Moreover, because of the way it has been structured, it is better suited to handle live data.
+-A meter-gauge displaying temperature data as it reads from serial. This visualization is created using highcharts.
+-The actual visual of a baby reflecting its mood. This has been created using CSS styles<br>
+-A temperature v/s time series for keeping track of the data. All the data being read from serial input is uploaded to data.sparkfun. The sparkfun repository creates it own timestamp with every input. This has been visualized using Highcharts. The advantage of using highcharts is that it allows us to provide absolute paths to its script files without requiring us to download all the scripts. Moreover, because of the way it has been structured, it is better suited to handle live data.<br>
 <br><br>
 3) Output - I have used an RGB led for providing a physical output, apart from the visualization that we see on the browser.
 The colour of the LED matches the colour being shown on the meter gauge. The color scheme is also pretty intuitive.
