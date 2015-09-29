@@ -18,7 +18,7 @@ This data is passed on as an float to the serial input. Logical operations can t
 I have ditched all the tools and plugins that I used for IA1. I had used JQPLOT and PLOTLY.
 This time around I have namely 3 different visuals on screen.<br>
 -A meter-gauge displaying temperature data as it reads from serial. This visualization is created using Highcharts. The details can be found <a href="http://www.highcharts.com/">here</a><br>
--The actual visual of a baby reflecting its mood. This has been created using CSS styles<br>
+-The actual visual of a baby reflecting its mood. This has been created using CSS styles. The data being read from serial is read into the html document as a string. I convert it into float to perform the logical operations and work with CSS implementation.
 -A temperature v/s time series for keeping track of the data. All the data being read from serial input is uploaded to data.sparkfun. The sparkfun repository creates it own timestamp with every input. This has been visualized using Highcharts. The advantage of using highcharts is that it allows us to provide absolute paths to its script files without requiring us to download all the scripts. Moreover, because of the way it has been structured, it is better suited to handle live data.<br>
 <br><br>
 ###3) Output - 
