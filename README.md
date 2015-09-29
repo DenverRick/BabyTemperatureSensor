@@ -24,5 +24,6 @@ This time around I have namely 3 different visuals on screen.<br>
 The colour of the LED matches the colour being shown on the meter gauge. The color scheme is also pretty intuitive.
 The logic for handling the LED is coded in the .ino file itself. And it is triggered as and when we read an input from the serial.
 
-
+The link for visualization of data on cloud:
+http://rawgit.com/tirumalavan/BabyTemperatureSensor/master/balaji_ia2_iframe.html
 
